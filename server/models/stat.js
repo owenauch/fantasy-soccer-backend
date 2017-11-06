@@ -1,8 +1,11 @@
 'use strict'
 module.exports = function (sequelize, DataTypes) {
-  var stat = sequelize.define('stat', {
-    name: DataTypes.STRING,
+  var Stat = sequelize.define('stat', {
+    lockedIn: DataTypes.BOOLEAN,
+    week: DataTypes.INTEGER,
+    season: DataTypes.STRING,
     league: DataTypes.STRING,
+    name: DataTypes.STRING,
     team: DataTypes.STRING,
     position: DataTypes.STRING,
     gamesPlayed: DataTypes.INTEGER,
@@ -76,5 +79,5 @@ module.exports = function (sequelize, DataTypes) {
       }
     }
   })
-  return stat
+  return Stat
 }
