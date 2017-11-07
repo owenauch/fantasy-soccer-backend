@@ -1,6 +1,6 @@
 'use strict'
 module.exports = function (sequelize, DataTypes) {
-  var Stat = sequelize.define('stat', {
+  var weekStats = sequelize.define('weekStats', {
     week: DataTypes.INTEGER,
     season: DataTypes.STRING,
     league: DataTypes.STRING,
@@ -78,5 +78,5 @@ module.exports = function (sequelize, DataTypes) {
       }
     }
   })
-  return Stat
+  return weekStats
 }
