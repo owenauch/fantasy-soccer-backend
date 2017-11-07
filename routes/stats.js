@@ -4,6 +4,7 @@ const express = require('express')
 const statsRouter = express.Router()
 const models = require('../server/models')
 const Promise = require('bluebird')
+const updateCurrentStats = require('../scripts/updateCurrentStats.js')
 
 statsRouter.post('/new', function (req, res) {
   const Stat = models.stat
@@ -91,8 +92,18 @@ statsRouter.post('/new', function (req, res) {
     return Stat.create(playerData)
   })
 
-  .then(stats => console.log('hooray'))
-  .catch(error => console.error(error))
+  .then(stats => {
+    res.json({
+      success: true,
+      message: 'Players added to database successfully!'
+    })
+  })
+  .catch(error => {
+    res.status(500).json({
+      success: false,
+      error
+    })
+  })
 })
 
 module.exports = statsRouter
