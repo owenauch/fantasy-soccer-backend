@@ -29,7 +29,6 @@ function updateWeekStats (week, league) {
   })
 
   .then(players => {
-    console.log(players)
     return Promise.map(players, function (player) {
       thisWeekPlayers.push(player)
       return Stat.find({
@@ -42,7 +41,6 @@ function updateWeekStats (week, league) {
   })
 
   .then(lastWeekPlayers => {
-    console.log(lastWeekPlayers)
     // get it in global variable
     // will be null if the player doesn't exist before
     for (var x = 0; x < lastWeekPlayers.length; x++) {
