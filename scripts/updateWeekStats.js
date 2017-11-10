@@ -138,6 +138,7 @@ function updateWeekStats (week, league) {
           punches: tWeekPlayer.punches - lastWeekPlayer.punches
         }
 
+        created += 1
         return WeekStat.create(playerData)
       } else {
         const playerData = {
