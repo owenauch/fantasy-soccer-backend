@@ -30,6 +30,6 @@ scraper(username, password, league, season)
       console.log('error:', error)
     }
     console.log('statusCode:', response && response.statusCode) // Print the response status code if a response was received
-    console.log('message:', body.message)
+    console.log('error:', body.error)
   })
 })

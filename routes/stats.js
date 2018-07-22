@@ -109,6 +109,7 @@ statsRouter.post('/new', function (req, res) {
     })
   })
   .catch(error => {
+    console.log('CIGARS', error)
     res.status(500).json({
       success: false,
       error
