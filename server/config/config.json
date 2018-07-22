@@ -14,10 +14,10 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "owenauch",
+    "username": "root",
     "password": null,
-    "database": "fantasy_soccer_production",
+    "database": "database_production",
     "host": "127.0.0.1",
-    "dialect": "postgresql"
+    "dialect": "mysql"
   }
 }

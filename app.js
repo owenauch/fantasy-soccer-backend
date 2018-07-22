@@ -25,4 +25,4 @@ app.listen(port)
 console.log('Fantasy Soccer Backend running on port ' + port)
 
 // start stat updating script
-updateStats()
+// updateStats()

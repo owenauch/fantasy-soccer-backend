@@ -1,60 +1,87 @@
-const fork = require('child_process').fork
-const bigDelay = 600000 // 10 minutes
-const smallDelay = 10000 // 10 seconds
+const fork = require("child_process").fork;
+const abuseFreeTrial = require("./abuseFreeTrial");
+const bigDelay = 600000; // 10 minutes
+const smallDelay = 10000; // 10 seconds
+var username;
+var password;
+var season;
+var week;
 
-function updateStats () {
-  const username = process.env.ROTOWIRE_USERNAME
-  const password = process.env.ROTOWIRE_PASSWORD
-  const season = process.env.SEASON
-  const week = parseInt(process.env.WEEK)
 
-  fork('./scripts/post-new-stats.js', [username, password, 'EPL', season, week])
+function updateStats() {
+  abuseFreeTrial().then(account => {
+    username = account.username;
+    password = account.password;
+    season = process.argv[2];
+    week = parseInt(process.argv[3]);
 
-  setTimeout(() => { getFranceStats() }, smallDelay)
+    fork("./scripts/post-new-stats.js", [
+      username,
+      password,
+      "EPL",
+      season,
+      week
+    ]);
+    setTimeout(() => {
+      getFranceStats();
+    }, smallDelay);
+  });
 }
 
-function getFranceStats () {
-  const username = process.env.ROTOWIRE_USERNAME
-  const password = process.env.ROTOWIRE_PASSWORD
-  const season = process.env.SEASON
-  const week = parseInt(process.env.WEEK)
+function getFranceStats() {
+  fork("./scripts/post-new-stats.js", [
+    username,
+    password,
+    "FRAN",
+    season,
+    week
+  ]);
 
-  fork('./scripts/post-new-stats.js', [username, password, 'FRAN', season, week])
-
-  setTimeout(() => { getItalyStats() }, smallDelay)
+  setTimeout(() => {
+    getItalyStats();
+  }, smallDelay);
 }
 
-function getItalyStats () {
-  const username = process.env.ROTOWIRE_USERNAME
-  const password = process.env.ROTOWIRE_PASSWORD
-  const season = process.env.SEASON
-  const week = parseInt(process.env.WEEK)
+function getItalyStats() {
+  fork("./scripts/post-new-stats.js", [
+    username,
+    password,
+    "SERI",
+    season,
+    week
+  ]);
 
-  fork('./scripts/post-new-stats.js', [username, password, 'SERI', season, week])
-
-  setTimeout(() => { getSpainStats() }, smallDelay)
+  setTimeout(() => {
+    getSpainStats();
+  }, smallDelay);
 }
 
-function getSpainStats () {
-  const username = process.env.ROTOWIRE_USERNAME
-  const password = process.env.ROTOWIRE_PASSWORD
-  const season = process.env.SEASON
-  const week = parseInt(process.env.WEEK)
+function getSpainStats() {
+  fork("./scripts/post-new-stats.js", [
+    username,
+    password,
+    "LIGA",
+    season,
+    week
+  ]);
 
-  fork('./scripts/post-new-stats.js', [username, password, 'LIGA', season, week])
-
-  setTimeout(() => { getGermanyStats() }, smallDelay)
+  setTimeout(() => {
+    getGermanyStats();
+  }, smallDelay);
 }
 
-function getGermanyStats () {
-  const username = process.env.ROTOWIRE_USERNAME
-  const password = process.env.ROTOWIRE_PASSWORD
-  const season = process.env.SEASON
-  const week = parseInt(process.env.WEEK)
+function getGermanyStats() {
+  fork("./scripts/post-new-stats.js", [
+    username,
+    password,
+    "BUND",
+    season,
+    week
+  ]);
 
-  fork('./scripts/post-new-stats.js', [username, password, 'BUND', season, week])
-
-  setTimeout(() => { updateStats() }, bigDelay)
+  // setTimeout(() => {
+  //   updateStats();
+  // }, bigDelay);
 }
 
-module.exports = updateStats
+module.exports = updateStats;
